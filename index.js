@@ -13,7 +13,7 @@ import path from "path";
 const OLLAMA_BASE_URL = "http://localhost:11434";
 
 // Available models - you can customize this
-const DEFAULT_MODEL = "gemma3:14b";
+const DEFAULT_MODEL = "gemma3:12b";
 const FALLBACK_MODEL = "gemma3:4b";
 
 class OllamaServer {
