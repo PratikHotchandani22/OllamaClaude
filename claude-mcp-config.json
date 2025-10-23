@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ollama": {
+      "command": "node",
+      "args": ["G:\\Projects\\OllamaClaude\\index.js"]
+    }
+  }
+}
