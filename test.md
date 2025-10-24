@@ -11,8 +11,8 @@ Use this file to:
 
 ## Important Notes
 
-- **Timeout Considerations**: Ollama calls typically take 90-300 seconds on a single GPU. Be patient!
-- **Model**: Default model is `gemma3:27b` with `gemma3:4b` as fallback
+- **Timeout Considerations**: Ollama calls typically take 60-180 seconds with gemma3:12b on a single GPU. Be patient!
+- **Model**: Default model is `gemma3:12b` with `gemma3:4b` as fallback
 - **Restart Required**: After modifying `index.js`, restart Claude Code to reload the MCP server
 
 ## Test Cases
@@ -25,14 +25,14 @@ These tools accept code as strings - useful when code is already in context:
 Test: ollama_explain_code
 - Pass a small code snippet
 - Verify Ollama explains it correctly
-- Expected time: 90-300 seconds
+- Expected time: 60-120 seconds
 ```
 
 ```
 Test: ollama_review_code
 - Pass a code snippet with potential issues
 - Check if Ollama identifies problems
-- Expected time: 90-300 seconds
+- Expected time: 60-120 seconds
 ```
 
 ### 2. File-Aware Tools (New - Token Savers!)
@@ -46,7 +46,7 @@ These tools read files directly on the MCP server, reducing conversation token u
 {
   file_path: "G:\\Projects\\OllamaClaude\\index.js",
   focus: "error handling",
-  model: "gemma3:27b"
+  model: "gemma3:12b"
 }
 ```
 
@@ -160,7 +160,7 @@ Total conversation tokens: ~50
 **Solution**:
 - Expected for large files or complex tasks
 - Consider using smaller model (`gemma3:4b`) for simpler tasks
-- Increase timeout in `index.js` if needed (currently 120000ms)
+- Increase timeout in `index.js` if needed (currently 900000ms = 15 minutes)
 
 ### Issue: "Tools not appearing"
 **Solution**:
@@ -182,7 +182,7 @@ Total conversation tokens: ~50
 
 2. Simple test:
    - Use ollama_explain_file on package.json
-   - Wait 90-300 seconds
+   - Wait 60-120 seconds
    - Verify response makes sense
 
 3. Advanced test:

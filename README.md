@@ -56,7 +56,7 @@ Verify you have the models installed:
 ollama list
 ```
 
-You should see `gemma3:27b`, `gemma3:4b`, or other models you want to use. The default model is `gemma3:27b` with `gemma3:4b` as a faster fallback for simpler tasks.
+You should see `gemma3:12b`, `gemma3:4b`, or other models you want to use. The default model is `gemma3:12b` with `gemma3:4b` as a faster fallback for simpler tasks.
 
 ### 3. Configure Claude Code
 
@@ -107,13 +107,14 @@ Simply ask Claude to do tasks, and it will decide when to delegate to Ollama:
 Edit `index.js` and update these lines (near the top of the file):
 
 ```javascript
-const DEFAULT_MODEL = "gemma3:27b";  // Change to your preferred model
+const DEFAULT_MODEL = "gemma3:12b";  // Change to your preferred model
 const FALLBACK_MODEL = "gemma3:4b";  // Faster model for simpler tasks
 ```
 
 Popular Ollama models to consider:
-- `gemma3:27b` - High quality, slower (default)
-- `gemma3:4b` - Faster, good for simple tasks
+- `gemma3:12b` - Good balance of quality and speed (default)
+- `gemma3:27b` - Highest quality, slower, requires more VRAM
+- `gemma3:4b` - Fastest, good for simple tasks
 - `qwen2.5-coder:7b` - Specialized for coding
 - `mistral-small:latest` - Good balance of speed and quality
 
@@ -141,9 +142,9 @@ Add new tools by:
 - Check Claude Code logs for MCP connection errors
 
 ### Slow Responses / Timeouts
-- **Expected behavior**: Ollama calls typically take 90-300 seconds on single GPU setups
-- Consider using faster models for simple tasks (e.g., `gemma3:4b` instead of `gemma3:27b`)
-- Adjust the timeout in `index.js` line 362 (currently 120000ms = 2 minutes)
+- **Expected behavior**: Ollama calls typically take 60-180 seconds with gemma3:12b on single GPU setups
+- Consider using faster models for simple tasks (e.g., `gemma3:4b` instead of `gemma3:12b`)
+- Adjust the timeout in `index.js` line 362 (currently 900000ms = 15 minutes)
 - Ensure your machine has adequate resources for the model
 - For large files, consider using smaller models or breaking the analysis into chunks
 
@@ -176,13 +177,13 @@ This hybrid approach gives you the speed and cost savings of local models with t
 ## Performance Expectations
 
 ### Response Times
-- **Small tasks** (simple code snippets): 30-90 seconds
-- **Medium tasks** (function reviews, file analysis): 90-180 seconds
-- **Large tasks** (multiple files, complex analysis): 180-300 seconds
+- **Small tasks** (simple code snippets): 20-60 seconds
+- **Medium tasks** (function reviews, file analysis): 60-120 seconds
+- **Large tasks** (multiple files, complex analysis): 120-180 seconds
 
 Response time depends on:
 - Your GPU/CPU capabilities
-- Model size (`gemma3:4b` is ~4x faster than `gemma3:27b`)
+- Model size (`gemma3:4b` is ~3x faster than `gemma3:12b`, `gemma3:27b` is ~2x slower)
 - Task complexity
 - File size for file-aware tools
 
